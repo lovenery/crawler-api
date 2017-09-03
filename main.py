@@ -1,8 +1,10 @@
 from flask import Flask, render_template, jsonify, request
 from os import environ
 from crawler import ptt
+from helper.flask_cors import add_cors_headers
 
 app = Flask(__name__)
+app.after_request(add_cors_headers)
 
 @app.route('/')
 def index():
