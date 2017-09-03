@@ -21,3 +21,4 @@ python main.py
 - Flask
 - requests
 - beautifulsoup4
+- gunicorn
