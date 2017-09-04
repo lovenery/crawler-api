@@ -10,7 +10,7 @@ def start(url):
     articles = soup.select('div.title a')
 
     results = []
-    for a in articles:
+    for a in reversed(articles):
         result = []
         url = 'https://www.ptt.cc' + a['href']
         result.append(a.text)
