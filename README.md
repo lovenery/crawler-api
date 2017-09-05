@@ -3,6 +3,7 @@
 ## Available
 
 - [Beauty - Ptt BBS](https://www.ptt.cc/bbs/Beauty/index.html)
+- [clock face emoji](https://apps.timwhitlock.info/emoji/tables/unicode)
 
 ## Development
 
