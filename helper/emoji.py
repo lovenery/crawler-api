@@ -1,9 +1,11 @@
 import time as Time
-import datetime as Datetime
+from datetime import datetime, timedelta
 
 def time():
     # https://docs.python.org/3/library/datetime.html#datetime-objects
-    now = Datetime.datetime.now()
+    # https://blog.liang2.tw/posts/2015/09/datetime-sqlite/
+    now = datetime.utcnow()
+    now = now + timedelta(hours=8)
     code = ''
     h = now.hour # 0 <= hour < 24
     m = now.minute # 0 <= minute < 60
@@ -58,4 +60,4 @@ def time():
         elif h == 0 or h == 12:
             code = '0x1F567'
 
-    return now.strftime("%Y-%m-%d %H:%M:%S"), code
+    return now, code

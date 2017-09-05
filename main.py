@@ -27,8 +27,9 @@ def beauty():
 def time():
     now, code = emoji.time()
     return jsonify({
-        'now': now,
-        'unicode': code
+        'unicode': code,
+        'now': now.strftime("%Y-%m-%d %H:%M:%S"),
+        'timezone': 'GMT+8',
     })
 
 if __name__ == '__main__':
