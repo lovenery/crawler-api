@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from os import environ
 from crawler import ptt
 from helper.flask_cors import add_cors_headers
+from helper import emoji
 
 app = Flask(__name__)
 app.after_request(add_cors_headers)
@@ -20,6 +21,14 @@ def beauty():
     return jsonify({
         'url': next_url,
         'articles': results
+    })
+
+@app.route('/time')
+def time():
+    now, code = emoji.time()
+    return jsonify({
+        'now': now,
+        'unicode': code
     })
 
 if __name__ == '__main__':
