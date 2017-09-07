@@ -1,5 +1,5 @@
-import time as Time
 from datetime import datetime, timedelta
+from random import randint
 
 def time():
     # https://docs.python.org/3/library/datetime.html#datetime-objects
@@ -61,3 +61,9 @@ def time():
             code = '0x1F567'
 
     return now, code
+
+def fruit():
+    # U+1F345(127813) ~ U+1F353(127827)
+    rand = randint(127813, 127827)
+    code = hex(rand)
+    return code

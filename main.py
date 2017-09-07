@@ -32,5 +32,12 @@ def time():
         'timezone': 'GMT+8',
     })
 
+@app.route('/fruit')
+def fruit():
+    code = emoji.fruit()
+    return jsonify({
+        'unicode': code,
+    })
+
 if __name__ == '__main__':
     app.run(port = int(environ.get("PORT", 5000)))

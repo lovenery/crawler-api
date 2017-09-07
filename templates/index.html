@@ -15,8 +15,11 @@
             </li>
             <li>
                 GET <a class="link" href="#" url="/time"></a>
-                <code>{"now", "unicode"}</code>
-                <blockquote id="time"></blockquote>
+                <code id="time">{"unicode", "now", "timezone"}</code>
+            </li>
+            <li>
+                GET <a class="link" href="#" url="/fruit"></a>
+                <code id="fruit">{"unicode"}</code>
             </li>
         </ul>
     </div>
@@ -34,18 +37,20 @@
         anchors[i].setAttribute('target', '_blank')
     }
 
-    let xhr = new XMLHttpRequest()
-    xhr.open('GET', `${prefix}/time`)
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            let res = JSON.parse(xhr.responseText)
-            document.getElementById('time').textContent = `
-                ${String.fromCodePoint(res.unicode)} , ${res.now}, ${res.timezone}
-            `
-        } else {
-            alert('Request failed.  Returned status of ' + xhr.status)
+    function render_emoji(url) {
+        let xhr = new XMLHttpRequest()
+        xhr.open('GET', `${prefix}/${url}`)
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                let res = JSON.parse(xhr.responseText)
+                document.getElementById(url).textContent += ` ${String.fromCodePoint(res.unicode)}`
+            } else {
+                alert('Request failed.  Returned status of ' + xhr.status)
+            }
         }
+        xhr.send()
     }
-    xhr.send()
+    render_emoji('time')
+    render_emoji('fruit')
 </script>
 {% endblock %}
