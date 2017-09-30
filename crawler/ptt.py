@@ -4,8 +4,8 @@ import re
 
 re_imgur_com = re.compile('https?:\/\/(?:i\.)?imgur\.com\/\w+')
 
-def start(url):
-    response = requests.get(url)
+def start(index_url):
+    response = requests.get(index_url)
     soup = BeautifulSoup(response.text, 'html.parser')
     articles = soup.select('div.title a')
 
@@ -23,7 +23,12 @@ def start(url):
             results.append(result)
 
     paging = soup.select('div.btn-group-paging a')
-    next_url = 'https://www.ptt.cc' + paging[1]['href']
+    if index_url != 'https://www.ptt.cc/bbs/Beauty/index1.html': # is not last page?
+        next_url = 'https://www.ptt.cc' + paging[1]['href']
+        if not results: # is empty?
+            next_url, results = start(next_url)
+    else:
+        next_url = index_url
 
     return next_url, results
 
