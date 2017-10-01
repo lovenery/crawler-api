@@ -21,6 +21,10 @@
                 GET <a class="link" href="#" url="/fruit"></a>
                 <code id="fruit">{"unicode"}</code>
             </li>
+            <li>
+                GET <a class="link" href="#" url="/president"></a>
+                <code id="president">{"time","content"}</code>
+            </li>
         </ul>
     </div>
 </div>
@@ -37,20 +41,25 @@
         anchors[i].setAttribute('target', '_blank')
     }
 
-    function render_emoji(url) {
+    function render(type, url) {
         let xhr = new XMLHttpRequest()
         xhr.open('GET', `${prefix}/${url}`)
         xhr.onload = function() {
             if (xhr.status === 200) {
                 let res = JSON.parse(xhr.responseText)
-                document.getElementById(url).textContent += ` ${String.fromCodePoint(res.unicode)}`
+                if (type === 'emoji') {
+                    document.getElementById(url).textContent += ` ${String.fromCodePoint(res.unicode)}`
+                } else if (type === 'gov') {
+                    document.getElementById(url).innerHTML += `<br>${res.time}<br>${res.content}`
+                }
             } else {
                 alert('Request failed.  Returned status of ' + xhr.status)
             }
         }
         xhr.send()
     }
-    render_emoji('time')
-    render_emoji('fruit')
+    render('emoji', 'time')
+    render('emoji', 'fruit')
+    render('gov', 'president')
 </script>
 {% endblock %}

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from os import environ
-from crawler import ptt
+from crawler import ptt, gov
 from helper.flask_cors import add_cors_headers
 from helper import emoji
 
@@ -37,6 +37,14 @@ def fruit():
     code = emoji.fruit()
     return jsonify({
         'unicode': code,
+    })
+
+@app.route('/president')
+def president():
+    time, content = gov.president()
+    return jsonify({
+        'time': time,
+        'content': content,
     })
 
 if __name__ == '__main__':
