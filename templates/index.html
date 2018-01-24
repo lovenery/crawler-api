@@ -15,15 +15,23 @@
             </li>
             <li>
                 GET <a class="link" href="#" url="/time"></a>
-                <code id="time">{"unicode", "now", "timezone"}</code>
+                <code id="emoji-time">{"unicode", "now", "timezone"}</code>
             </li>
             <li>
                 GET <a class="link" href="#" url="/fruit"></a>
-                <code id="fruit">{"unicode"}</code>
+                <code id="emoji-fruit">{"unicode"}</code>
             </li>
             <li>
                 GET <a class="link" href="#" url="/president"></a>
-                <code id="president">{"time","content"}</code>
+                <code id="gov-president">{"time","content"}</code>
+            </li>
+            <li>
+                GET <a class="link" href="#" url="/ncu-csie-category"></a>
+                <code id="ncu-csie-category">["ann_title", "ann_lists": [3]]</code>
+            </li>
+            <li>
+                GET <a class="link" href="#" url="/ncu-csie-all?page=4"></a>
+                <code id="ncu-csie-all">[[3]], default page=3</code>
             </li>
         </ul>
     </div>
@@ -41,16 +49,33 @@
         anchors[i].setAttribute('target', '_blank')
     }
 
-    function render(type, url) {
+    function render(element_id, url) {
         let xhr = new XMLHttpRequest()
         xhr.open('GET', `${prefix}/${url}`)
         xhr.onload = function() {
             if (xhr.status === 200) {
                 let res = JSON.parse(xhr.responseText)
-                if (type === 'emoji') {
-                    document.getElementById(url).textContent += ` ${String.fromCodePoint(res.unicode)}`
-                } else if (type === 'gov') {
-                    document.getElementById(url).innerHTML += `<br>${res.time}<br>${res.content}`
+                if (element_id.includes('emoji')) {
+                    document.getElementById(element_id).textContent += ` ${String.fromCodePoint(res.unicode)}`
+                } else if (element_id === 'gov-president') {
+                    document.getElementById(element_id).innerHTML += `<br>${res.time}<br>${res.content}`
+                } else if (element_id === 'ncu-csie-category') {
+                    for (let i = 0; i < res.length; i++) {
+                        document.getElementById(element_id).innerHTML += `<br>${res[i].ann_title}<br>`
+                        let ann_lists = res[i].ann_lists
+                        for (let j = 0; j < ann_lists.length; j++) {
+                            document.getElementById(element_id).innerHTML += `
+                                <a href="${ann_lists[j][0]}" target="_blank">${ann_lists[j][2]}, ${ann_lists[j][1]}</a>
+                                <br>
+                            `
+                        }
+                    }
+                } else if (element_id === 'ncu-csie-all') {
+                    for (let i = 0; i < res.length; i++) {
+                        document.getElementById(element_id).innerHTML += `<br>
+                            <a href="${res[i][0]}" target="_blank">${res[i][2]}, ${res[i][1]}</a>
+                        `
+                    }
                 }
             } else {
                 alert('Request failed.  Returned status of ' + xhr.status)
@@ -58,8 +83,10 @@
         }
         xhr.send()
     }
-    render('emoji', 'time')
-    render('emoji', 'fruit')
-    render('gov', 'president')
+    render('emoji-time', 'time')
+    render('emoji-fruit', 'fruit')
+    render('gov-president', 'president')
+    // render('ncu-csie-category', 'ncu-csie-category')
+    render('ncu-csie-all', 'ncu-csie-all?page=4')
 </script>
 {% endblock %}

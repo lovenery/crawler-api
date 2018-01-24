@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from os import environ
-from crawler import ptt, gov
+from crawler import ptt, gov, ncu
 from helper.flask_cors import add_cors_headers
 from helper import emoji
 
@@ -46,6 +46,14 @@ def president():
         'time': time,
         'content': content,
     })
+
+@app.route('/ncu-csie-category')
+def ncu_csie_category():
+    return jsonify(ncu.csie_category())
+
+@app.route('/ncu-csie-all')
+def ncu_csie_all():
+    return jsonify(ncu.csie_all(request.args.get('page')))
 
 if __name__ == '__main__':
     app.run(port = int(environ.get("PORT", 5000)))
