@@ -5,6 +5,7 @@
 - [Beauty - Ptt BBS](https://www.ptt.cc/bbs/Beauty/index.html)
 - [clock face emoji](https://apps.timwhitlock.info/emoji/tables/unicode)
 - [Daily activities of the President of the ROC](http://www.president.gov.tw/Page/37)
+- [Announcements of NCU CSIE](http://www.csie.ncu.edu.tw/announcement)
 
 ## Development
 
