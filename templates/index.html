@@ -71,8 +71,19 @@
                         }
                     }
                 } else if (element_id === 'ncu-csie-all') {
+                    let latest_date_index = 0
                     for (let i = 0; i < res.length; i++) {
-                        document.getElementById(element_id).innerHTML += `<br>
+                        if (new Date(res[latest_date_index][2]) < new Date(res[i][2])) {
+                            latest_date_index = i
+                        }
+                    }
+                    let code_tag = document.getElementById(element_id)
+                    code_tag.innerHTML += `<br>${String.fromCodePoint('0x1F4CC')} 置頂公告：`
+                    for (let i = 0; i < res.length; i++) {
+                        if (i == latest_date_index) {
+                            code_tag.innerHTML += `<br>${String.fromCodePoint('0x26A1')} 最新公告：`
+                        }
+                        code_tag.innerHTML += `<br>
                             <a href="${res[i][0]}" target="_blank">${res[i][2]}, ${res[i][1]}</a>
                         `
                     }
