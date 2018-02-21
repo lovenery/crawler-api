@@ -10,6 +10,7 @@
 ## Development
 
 ```shell
+pip3 install virtualenv # global
 virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
