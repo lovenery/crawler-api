@@ -26,3 +26,12 @@ python main.py
 - requests
 - beautifulsoup4
 - gunicorn
+
+## Notes
+
+```shell
+# Deploy using Heroku Git
+git remote add heroku https://git.heroku.com/q86.git # or heroku git:remote -a q86
+git push heroku master
+```
+
