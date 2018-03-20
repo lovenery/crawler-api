@@ -47,6 +47,10 @@ def president():
         'content': content,
     })
 
+@app.route('/ncu-event')
+def ncu_event():
+    return jsonify(ncu.event())
+
 @app.route('/ncu-csie-category')
 def ncu_csie_category():
     return jsonify(ncu.csie_category())

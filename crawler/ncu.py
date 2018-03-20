@@ -1,6 +1,22 @@
 import requests
 from bs4 import BeautifulSoup
 
+def event():
+    response = requests.get('http://www.ncu.edu.tw/events')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    elements = soup.select('#event-news table table table table tr')
+
+    tmp_list = []
+    for ele in elements:
+        td = ele.findAll('td')
+        tmp_dict = {}
+        tmp_dict['kind'] = td[0].text
+        tmp_dict['text'] = td[1].text
+        tmp_dict['href'] = 'http://www.ncu.edu.tw' + td[1].a['href']
+        tmp_list.append(tmp_dict)
+
+    return tmp_list
+
 def single_ann(category_str):
     response = requests.get('http://www.csie.ncu.edu.tw/announcement/category/' + category_str)
     soup = BeautifulSoup(response.text, 'html.parser')
